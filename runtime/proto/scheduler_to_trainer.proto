@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service SchedulerToTrainer {
+    rpc QueryStats (QueryStatsRequest) returns (QueryStatsResponse) {};
+}
+
+message QueryStatsRequest {
+
+}
+
+message QueryStatsResponse {
+    uint32 finished_iterations = 1;
+}

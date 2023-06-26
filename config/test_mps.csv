@@ -1,0 +1,3 @@
+submit_time,model_name,batch_size,iterations,gpu_requests,priority,thread_percentage,image_name
+0,shufflenet_v2_x1_0,4,10000,1,mps,30,bingyangwu2000/tf_torch
+0,tf_benchmarks-mobilenet,4,10000,1,mps,70,bingyangwu2000/tf_without_antman

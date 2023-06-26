@@ -1,0 +1,3 @@
+submit_time,model_name,batch_size,iterations,gpu_requests,priority,image_name,antman_config,antman_status
+0,tf-shufflenet,4,10000,1,Co-ex,bingyangwu2000/antman:0.1,config/test_antman_shufflenet_gpu_config.json,config/test_antman_shufflenet_gpu_status.json
+0,tf_benchmarks-mobilenet,4,30000,1,Co-ex,bingyangwu2000/antman:0.1,config/test_antman_mobilenet_gpu_config.json,config/test_antman_mobilenet_gpu_status.json

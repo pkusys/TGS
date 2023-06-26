@@ -1,0 +1,17 @@
+{
+  "experiment_dir": "test_experiment",
+  "num_epochs": 100000,
+  "num_classes": 1000,
+  "batch_size": 4,
+  "num_groups": 3,
+  "shuffle": false,
+  "l2_strength": 4e-5,
+  "bias": 0.0,
+  "learning_rate": 1e-3,
+  "batchnorm_enabled": true,
+  "max_to_keep": 4,
+  "save_model_every": 5,
+  "test_every": 5,
+  "train_or_test": "train",
+  "pretrained_path": "weights.pkl"
+}

@@ -1,0 +1,3 @@
+submit_time,model_name,batch_size,iterations,gpu_requests,priority,image_name
+0,resnet50,4,30000,1,Ex,bingyangwu2000/tf_torch
+0,mobilenet_v2,4,30000,1,Ex,bingyangwu2000/tf_torch

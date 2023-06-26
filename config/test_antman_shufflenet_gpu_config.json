@@ -1,0 +1,8 @@
+{
+    "gpuConfigInfo": {
+     "00:1e.0": {
+      "maxDeviceMem": 5688315084
+     }
+    },
+    "perfControl": 100
+}
