@@ -18,7 +18,7 @@ function build() {
     cp ${ROOT}/build/libcuda-control-high-priority.so ./libcuda-control.so
 
     touch ./ld.so.preload
-    echo -e "/libcontroller.so\n/libcuda.so\n/libcuda.so.1\n/libnvidia-ml.so\n/libnvidia-ml.so.1" > ./ld.so.preload
+    echo -e "/libcuda.so.1" > ./ld.so.preload
     cp libcuda-control.so ./libnvidia-ml.so.1
     patchelf --set-soname libnvidia-ml.so.1 ./libnvidia-ml.so.1
     cp libcuda-control.so ./libnvidia-ml.so
@@ -36,7 +36,8 @@ function build() {
     cp ${ROOT}/build/libcuda-control-low-priority.so ./libcuda-control.so
 
     touch ./ld.so.preload
-    echo -e "/libcontroller.so\n/libcuda.so\n/libcuda.so.1\n/libnvidia-ml.so\n/libnvidia-ml.so.1" > ./ld.so.preload
+    # echo -e "/libcontroller.so\n/libcuda.so\n/libcuda.so.1\n/libnvidia-ml.so\n/libnvidia-ml.so.1" > ./ld.so.preload
+    echo -e "/libcuda.so.1" > ./ld.so.preload
     cp libcuda-control.so ./libnvidia-ml.so.1
     patchelf --set-soname libnvidia-ml.so.1 ./libnvidia-ml.so.1
     cp libcuda-control.so ./libnvidia-ml.so

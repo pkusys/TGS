@@ -1,0 +1,417 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.2.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+/data/bez/work/TGS-caos/hijack/src/loader.c:785 Start hijacking
+/data/bez/work/TGS-caos/hijack/src/loader.c:801 can't find function cuEGLInit in libcuda.so.555.42.02
+/data/bez/work/TGS-caos/hijack/src/nvml_entry.c:11 nvmlInitWithFlags
+/data/bez/work/TGS-caos/hijack/src/nvml_entry.c:13 Hijacking nvmlInitWithFlags
+
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:364
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:374
+[cuInit] thread 1
+[cuInit] thread done 0
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:551
+[cuDeviceTotalMem_v2] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1011
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1084
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1054
+[0] cuCtxPopCurrent_v2!
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:1017
+/data/bez/work/TGS-caos/hijack/src/high_priori...
+...
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:810
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:810
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651
+[cuLaunchKernel] bro
+/data/bez/work/TGS-caos/hijack/src/high_priority_hijack_call.c:651

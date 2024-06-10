@@ -1,3 +1,3 @@
 submit_time,model_name,batch_size,iterations,gpu_requests,priority,image_name
-0,resnet50,4,100000,1,low,mlos-base:v1
-0,resnet50,4,100000,1,high,mlos-base:v1
+0,resnet50,4,100000,1,low,my-tgs-container
+0,resnet50,4,100000,1,high,my-tgs-container

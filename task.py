@@ -278,6 +278,7 @@ class Task(object):
             'CUDA_MPS_PIPE_DIRECTORY' : '/tmp/nvidia-mps',
             'GPU_CONFIG_FILE': '/gpu_config.json',
             'GPU_STATUS_FILE': '/gpu_status.json',
+            'LOGGER_LEVEL': '4',
         }
         if self.need_throughput == True:
             envs['TGS_LOG_FILE_PATH'] = '/cluster/results/' + self.container_name + '_' + self._job_name + '.txt'
@@ -289,6 +290,10 @@ class Task(object):
             self.image_name,
             'bash', '-c', bash_cmd,
         ]
+
+        cmd[-1] = cmd[-1].replace('python ', '.venv/bin/python3 ')
+
+        import pdb; pdb.set_trace()
 
         print(' '.join(cmd))
 

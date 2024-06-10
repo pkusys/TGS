@@ -71,17 +71,7 @@ typedef enum {
 
 #define LOGGER(level, format, ...)                              \
   ({                                                            \
-    char *_print_level_str = getenv("LOGGER_LEVEL");            \
-    int _print_level = 3;                                       \
-    if (_print_level_str) {                                     \
-      _print_level = (int)strtoul(_print_level_str, NULL, 10);  \
-      _print_level = _print_level < 0 ? 3 : _print_level;       \
-    }                                                           \
-    FILE *fptr; \
-    fptr = fopen("/tmp/cudalog","a");\
-    fprintf(fptr, "%s:%d " format "\n", __FILE__, __LINE__, \
-              ##__VA_ARGS__);                                   \
-    fclose(fptr);\
+    fprintf(stderr, "%s:%d " format "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
     if (level == FATAL) {                                       \
       exit(-1);                                                 \
     }                                                           \

@@ -724,18 +724,21 @@ static void UNUSED bug_on() {
 /** register once set */
 static pthread_once_t g_cuda_set = PTHREAD_ONCE_INIT;
 
-char driver_version[FILENAME_MAX] = "450.51.06";
+char driver_version[FILENAME_MAX] = "555.42.02";
 
 static void load_driver_libraries() {
   void *table = NULL;
   char driver_filename[FILENAME_MAX];
   int i;
 
+
   snprintf(driver_filename, FILENAME_MAX - 1, "%s.%s", DRIVER_ML_LIBRARY_PREFIX,
            driver_version);
   driver_filename[FILENAME_MAX - 1] = '\0';
 
+
   table = dlopen(driver_filename, RTLD_NOW | RTLD_NODELETE);
+  printf("i am loading stuff uhhh @ %s\n", driver_filename);
   if (unlikely(!table)) {
     LOGGER(FATAL, "can't find library %s", driver_filename);
   }
@@ -760,6 +763,7 @@ static void load_cuda_single_library(int idx) {
   cuda_filename[FILENAME_MAX - 1] = '\0';
 
   table = dlopen(cuda_filename, RTLD_NOW | RTLD_NODELETE);
+  printf("i am loading stuff uhhh @ %s\n", cuda_filename);
   if (unlikely(!table)) {
     LOGGER(FATAL, "can't find library %s", cuda_filename);
   }

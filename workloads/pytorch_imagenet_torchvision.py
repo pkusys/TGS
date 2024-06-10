@@ -91,7 +91,7 @@ def train(epoch):
             t.update(1)
 
             timestamp = time.time()
-            trainer.record(timestamp - last_timestamp)
+            # trainer.record(timestamp - last_timestamp)
             last_timestamp = timestamp
 
 
