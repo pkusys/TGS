@@ -1,0 +1,36 @@
+docker run --gpus "device=0" --ipc host --network host \
+ --cap-add sys_nice -u root --cpuset-cpus 0-9,20-29 -v /data/bez/work/TGS:/cluster \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcontroller.so:/libcontroller.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcuda.so:/libcuda.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcuda.so.1:/libcuda.so.1:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libnvidia-ml.so:/libnvidia-ml.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libnvidia-ml.so.1:/libnvidia-ml.so.1:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/ld.so.preload:/etc/ld.so.preload:ro \
+  -v /data/bez/work/TGS/gsharing:/etc/gsharing -e TGS_WORKER_IP=172.19.144.150 \
+  -e TGS_WORKER_PORT=6889 -e TGS_TRAINER_PORT=55805 -e TGS_JOB_ID=2 -e CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps \
+  -e GPU_CONFIG_FILE=/gpu_config.json -e GPU_STATUS_FILE=/gpu_status.json --rm -it mlos-base:v1 bash
+
+docker run --gpus "device=0" --rm -it mlos-base:v1
+
+docker run --name --gpus "device=0" --ipc host --network host \
+ --cap-add sys_nice -u root --cpuset-cpus 0-9,20-29 -v /data/bez/work/TGS:/cluster \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcontroller.so:/libcontroller.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcuda.so:/libcuda.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libcuda.so.1:/libcuda.so.1:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libnvidia-ml.so:/libnvidia-ml.so:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/libnvidia-ml.so.1:/libnvidia-ml.so.1:ro \
+  -v /data/bez/work/TGS/hijack/high-priority-lib/ld.so.preload:/etc/ld.so.preload:ro \
+  -v /data/bez/work/TGS/gsharing:/etc/gsharing -e TGS_WORKER_IP=172.19.144.150 \
+  -e TGS_WORKER_PORT=6889 -e TGS_TRAINER_PORT=55805 -e TGS_JOB_ID=2 -e CUDA_MPS_PIPE_DIRECTORY=/tmp/nvidia-mps \
+  -e GPU_CONFIG_FILE=/gpu_config.json -e GPU_STATUS_FILE=/gpu_status.json mlos-base:v1 \
+  --rm -it bash
+  
+  
+  python3 /cluster/workloads/pytorch_imagenet_torchvision.py --iterations 100000 \
+  --batch-size 4 --model resnet50 --train-dir /cluster/datasets/tiny-imagenet-200/train \
+  --scheduler_ip 172.19.144.150 --trainer_port 55805 --job_id 2
+
+python3 /cluster/workloads/matmul.py
+
+
+LD_PRELOAD=./hijack/high-priority-lib/libcuda.so.1:./hijack/high-priority-lib/libcuda.so python3 ./workloads/matmul.py

@@ -1,14 +1,14 @@
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from trainer import Trainer
+# from trainer import Trainer
 import utils
 import time
 trainer = None
 
 import torch
 import argparse
-import torch.backends.cudnn as cudnn
+# import torch.backends.cudnn as cudnn
 import torch.multiprocessing as mp
 import torch.nn.functional as F
 import torch.optim as optim
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     if args.cuda:
         torch.cuda.manual_seed(args.seed)
 
-    cudnn.benchmark = True
+    # cudnn.benchmark = True
 
     resume_from_epoch = 0
 
@@ -198,9 +198,9 @@ if __name__ == '__main__':
                           momentum=args.momentum, weight_decay=args.wd)
 
 
-    trainer = Trainer(args.scheduler_ip, args.scheduler_port, utils.get_host_ip(), args.trainer_port, args.job_id, args.batch_size)
+    # trainer = Trainer(args.scheduler_ip, args.scheduler_port, utils.get_host_ip(), args.trainer_port, args.job_id, args.batch_size)
     args.epochs = args.iterations // len(train_loader) + 1
     for epoch in range(resume_from_epoch, args.epochs):
         train(epoch)
     
-    trainer.close()
+    # trainer.close()

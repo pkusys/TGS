@@ -290,6 +290,8 @@ class Task(object):
             'bash', '-c', bash_cmd,
         ]
 
+        print(' '.join(cmd))
+
         with open(self.log_path, 'w+') as f:
             self._handler = subprocess.Popen(
                 cmd,

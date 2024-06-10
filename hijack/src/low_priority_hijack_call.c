@@ -432,7 +432,7 @@ profile:
       
       if (max_delta >= -0.05 && max_delta <= 0.05) {
         max_rate = max_rate > max_window_rate ? max_rate : max_window_rate;
-        continue_flag = (abs(max_rate - max_window_rate) < 1e-5);
+        continue_flag = (fabs(max_rate - max_window_rate) < 1e-5);
       }
       else {
         if (max_delta > 0.05) {

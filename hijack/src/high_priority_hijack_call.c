@@ -41,21 +41,27 @@ static uint32_t g_block_locker = 0;
 
 static void initialization(CUdevice);
 
+#define PRINT_LINE_NUMBER() fprintf(stderr, "%s:%d\n", __FILE__, __LINE__)
+
 /** dynamic rate control */
 
 const char *cuda_error(CUresult code, const char **p) {
+    PRINT_LINE_NUMBER();
   CUDA_ENTRY_CALL(cuda_library_entry, cuGetErrorString, code, p);
 
   return *p;
 }
 
 static ssize_t rio_writen(int fd, void *usrbuf, size_t n) {
+    PRINT_LINE_NUMBER();
   size_t nleft = n;
   ssize_t nwritten;
   char *bufp = usrbuf;
 
   while (nleft > 0) {
+    PRINT_LINE_NUMBER();
 	  if ((nwritten = write(fd, bufp, nleft)) <= 0) {
+        PRINT_LINE_NUMBER();
 	    if (errno == EINTR)
 		    nwritten = 0;
 	    else
@@ -69,6 +75,7 @@ static ssize_t rio_writen(int fd, void *usrbuf, size_t n) {
 
 
 static int open_clientfd(CUdevice device) {
+    PRINT_LINE_NUMBER();
   char SOCKET_PATH[108];
   struct sockaddr_un addr;
   int ret;
@@ -78,6 +85,7 @@ static int open_clientfd(CUdevice device) {
 
   clientfd = socket(AF_UNIX, SOCK_STREAM, 0);
   if (clientfd == -1) {
+    PRINT_LINE_NUMBER();
     LOGGER(FATAL, "socket failed: %s\n", strerror(errno));
   }
 
@@ -110,6 +118,7 @@ static int open_clientfd(CUdevice device) {
 
   ret = connect(clientfd, (const struct sockaddr *) &addr, sizeof(addr));
   if (ret == -1) {
+    PRINT_LINE_NUMBER();
     LOGGER(4, "connect failed: %s\n", strerror(errno));
     if (close(clientfd) < 0)
       LOGGER(FATAL, "open_clientfd: close failed: %s\n", strerror(errno));
@@ -134,6 +143,7 @@ static inline void rate_estimator(const long long kernel_size) {
 
 
 static void *rate_monitor(void *v_device) {
+    PRINT_LINE_NUMBER();
   const CUdevice device = (uintptr_t)v_device;
   const unsigned long duration = 5000;
   const struct timespec unit_time = {
@@ -351,6 +361,7 @@ static inline void initialization(CUdevice device) {
 
 /** hijack entrypoint */
 CUresult cuDriverGetVersion(int *driverVersion) {
+    PRINT_LINE_NUMBER();
   CUresult ret;
 
   load_necessary_data();
@@ -360,6 +371,7 @@ CUresult cuDriverGetVersion(int *driverVersion) {
 }
 
 CUresult cuInit(unsigned int flag) {
+    PRINT_LINE_NUMBER();
   CUresult ret;
 
   fprintf(stderr, "[cuInit] thread %lu\n", (unsigned long)syscall(SYS_gettid));
@@ -367,11 +379,14 @@ CUresult cuInit(unsigned int flag) {
   load_necessary_data();
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuInit, flag);
-  return ret;
+
+   fprintf(stderr, "[cuInit] thread done %d\n", ret);
+  return 0;
 }
 
 CUresult cuMemAllocManaged(CUdeviceptr *dptr, size_t bytesize,
                            unsigned int flags) {
+                            PRINT_LINE_NUMBER();
   CUresult ret;
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMemAllocManaged, dptr, bytesize,
@@ -390,6 +405,8 @@ CUresult cuMemAllocManaged(CUdeviceptr *dptr, size_t bytesize,
 }
 
 CUresult cuMemAlloc_v2(CUdeviceptr *dptr, size_t bytesize) {
+    PRINT_LINE_NUMBER();
+    fprintf(stderr, "[cuMemAlloc_v2] bro\n");
   CUresult ret;
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMemAllocManaged, dptr, bytesize,
                         1);
@@ -405,6 +422,7 @@ CUresult cuMemAlloc_v2(CUdeviceptr *dptr, size_t bytesize) {
 }
 
 CUresult cuMemAlloc(CUdeviceptr *dptr, size_t bytesize) {
+    PRINT_LINE_NUMBER();
   CUresult ret;
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMemAllocManaged, dptr, bytesize,
@@ -424,6 +442,7 @@ CUresult cuMemAlloc(CUdeviceptr *dptr, size_t bytesize) {
 CUresult cuMemAllocPitch_v2(CUdeviceptr *dptr, size_t *pPitch,
                             size_t WidthInBytes, size_t Height,
                             unsigned int ElementSizeBytes) {
+                                PRINT_LINE_NUMBER();
   *pPitch = ROUND_UP(WidthInBytes, 128);
   size_t bytesize = ROUND_UP(*pPitch * Height, ElementSizeBytes);
   CUresult ret;
@@ -444,6 +463,7 @@ CUresult cuMemAllocPitch_v2(CUdeviceptr *dptr, size_t *pPitch,
 
 CUresult cuMemAllocPitch(CUdeviceptr *dptr, size_t *pPitch, size_t WidthInBytes,
                          size_t Height, unsigned int ElementSizeBytes) {
+                            PRINT_LINE_NUMBER();
   *pPitch = ROUND_UP(WidthInBytes, 128);
   size_t bytesize = ROUND_UP(*pPitch * Height, ElementSizeBytes);
   CUresult ret;
@@ -464,16 +484,19 @@ CUresult cuMemAllocPitch(CUdeviceptr *dptr, size_t *pPitch, size_t WidthInBytes,
 
 
 CUresult cuMemFree_v2(CUdeviceptr dptr) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemFree_v2, dptr);
 }
 
 
 CUresult cuMemFree(CUdeviceptr dptr) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemFree, dptr);
 }
 
 CUresult cuArrayCreate_v2(CUarray *pHandle,
                           const CUDA_ARRAY_DESCRIPTOR *pAllocateArray) {
+                            PRINT_LINE_NUMBER();
   CUresult ret;
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuArrayCreate_v2, pHandle,
@@ -483,6 +506,7 @@ CUresult cuArrayCreate_v2(CUarray *pHandle,
 
 CUresult cuArrayCreate(CUarray *pHandle,
                        const CUDA_ARRAY_DESCRIPTOR *pAllocateArray) {
+                        PRINT_LINE_NUMBER();
   CUresult ret;
 
 
@@ -493,6 +517,7 @@ CUresult cuArrayCreate(CUarray *pHandle,
 
 CUresult cuArray3DCreate_v2(CUarray *pHandle,
                             const CUDA_ARRAY3D_DESCRIPTOR *pAllocateArray) {
+                                PRINT_LINE_NUMBER();
   CUresult ret;
 
 
@@ -503,6 +528,7 @@ CUresult cuArray3DCreate_v2(CUarray *pHandle,
 
 CUresult cuArray3DCreate(CUarray *pHandle,
                          const CUDA_ARRAY3D_DESCRIPTOR *pAllocateArray) {
+                            PRINT_LINE_NUMBER();
   CUresult ret;
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuArray3DCreate, pHandle,
@@ -514,6 +540,7 @@ CUresult cuMipmappedArrayCreate(
     CUmipmappedArray *pHandle,
     const CUDA_ARRAY3D_DESCRIPTOR *pMipmappedArrayDesc,
     unsigned int numMipmapLevels) {
+        PRINT_LINE_NUMBER();
   CUresult ret;
 
   ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMipmappedArrayCreate, pHandle,
@@ -521,15 +548,17 @@ CUresult cuMipmappedArrayCreate(
   return ret;
 }
 
-CUresult cuDeviceTotalMem_v2(size_t *bytes, CUdevice dev) {
+CUresult cuDeviceTotalMem_v2(size_t *bytes, CUdevice dev) {    PRINT_LINE_NUMBER();
+    fprintf(stderr, "[cuDeviceTotalMem_v2] bro\n");
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuDeviceTotalMem_v2, bytes, dev);
   if (ret != CUDA_SUCCESS)
     return ret;
   *bytes -= g_spare_memory;
-  return ret;
+  return 0;
 }
 
 CUresult cuDeviceTotalMem(size_t *bytes, CUdevice dev) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuDeviceTotalMem, bytes, dev);
   if (ret != CUDA_SUCCESS)
     return ret;
@@ -538,6 +567,7 @@ CUresult cuDeviceTotalMem(size_t *bytes, CUdevice dev) {
 }
 
 CUresult cuMemGetInfo_v2(size_t *free, size_t *total) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMemGetInfo_v2, free, total);
   if (ret != CUDA_SUCCESS)
     return ret;
@@ -547,6 +577,7 @@ CUresult cuMemGetInfo_v2(size_t *free, size_t *total) {
 }
 
 CUresult cuMemGetInfo(size_t *free, size_t *total) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuMemGetInfo, free, total);
   if (ret != CUDA_SUCCESS)
     return ret;
@@ -556,12 +587,15 @@ CUresult cuMemGetInfo(size_t *free, size_t *total) {
 }
 
 CUresult cuStreamCreate(CUstream *phStream, unsigned int Flags) {
+    PRINT_LINE_NUMBER();
   int leastPriority, greatestPriority;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetStreamPriorityRange, &leastPriority, &greatestPriority);
   if (ret == CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     int priority = (leastPriority + greatestPriority - 1) / 2;
     ret = CUDA_ENTRY_CALL(cuda_library_entry, cuStreamCreateWithPriority, phStream, Flags, priority);
     if (ret == CUDA_SUCCESS) {
+        PRINT_LINE_NUMBER();
       return ret;
     }
     else {
@@ -577,11 +611,14 @@ CUresult cuStreamCreate(CUstream *phStream, unsigned int Flags) {
 
 CUresult cuStreamCreateWithPriority(CUstream *phStream, unsigned int flags,
                                     int priority) {
+                                        PRINT_LINE_NUMBER();
   int leastPriority, greatestPriority;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetStreamPriorityRange, &leastPriority, &greatestPriority);
   if (ret == CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     leastPriority = (leastPriority + greatestPriority - 1) / 2;
     if (priority > leastPriority) {
+        PRINT_LINE_NUMBER();
       priority = leastPriority;
     }
   }
@@ -598,6 +635,7 @@ CUresult cuLaunchKernel_ptsz(CUfunction f, unsigned int gridDimX,
                              unsigned int blockDimZ,
                              unsigned int sharedMemBytes, CUstream hStream,
                              void **kernelParams, void **extra) {
+                                PRINT_LINE_NUMBER();
   rate_estimator(gridDimX * gridDimY * gridDimZ);
 
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchKernel_ptsz, f, gridDimX,
@@ -610,7 +648,10 @@ CUresult cuLaunchKernel(CUfunction f, unsigned int gridDimX,
                         unsigned int blockDimX, unsigned int blockDimY,
                         unsigned int blockDimZ, unsigned int sharedMemBytes,
                         CUstream hStream, void **kernelParams, void **extra) {
+                            PRINT_LINE_NUMBER();
   rate_estimator(gridDimX * gridDimY * gridDimZ);
+
+    fprintf(stderr, "[cuLaunchKernel] bro\n");
 
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchKernel, f, gridDimX,
                          gridDimY, gridDimZ, blockDimX, blockDimY, blockDimZ,
@@ -618,6 +659,7 @@ CUresult cuLaunchKernel(CUfunction f, unsigned int gridDimX,
 }
 
 CUresult cuLaunch(CUfunction f) {
+    PRINT_LINE_NUMBER();
   rate_estimator(1);
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunch, f);
 }
@@ -627,6 +669,7 @@ CUresult cuLaunchCooperativeKernel_ptsz(
     unsigned int gridDimZ, unsigned int blockDimX, unsigned int blockDimY,
     unsigned int blockDimZ, unsigned int sharedMemBytes, CUstream hStream,
     void **kernelParams) {
+        PRINT_LINE_NUMBER();
   rate_estimator(gridDimX * gridDimY * gridDimZ);
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchCooperativeKernel_ptsz, f,
                          gridDimX, gridDimY, gridDimZ, blockDimX, blockDimY,
@@ -640,6 +683,7 @@ CUresult cuLaunchCooperativeKernel(CUfunction f, unsigned int gridDimX,
                                    unsigned int blockDimZ,
                                    unsigned int sharedMemBytes,
                                    CUstream hStream, void **kernelParams) {
+                                    PRINT_LINE_NUMBER();
   rate_estimator(gridDimX * gridDimY * gridDimZ);
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchCooperativeKernel, f,
                          gridDimX, gridDimY, gridDimZ, blockDimX, blockDimY,
@@ -647,6 +691,7 @@ CUresult cuLaunchCooperativeKernel(CUfunction f, unsigned int gridDimX,
 }
 
 CUresult cuLaunchGrid(CUfunction f, int grid_width, int grid_height) {
+    PRINT_LINE_NUMBER();
   rate_estimator(grid_width * grid_height);
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchGrid, f, grid_width,
                          grid_height);
@@ -654,12 +699,14 @@ CUresult cuLaunchGrid(CUfunction f, int grid_width, int grid_height) {
 
 CUresult cuLaunchGridAsync(CUfunction f, int grid_width, int grid_height,
                            CUstream hStream) {
+                            PRINT_LINE_NUMBER();
   rate_estimator(grid_width * grid_height);
   return CUDA_ENTRY_CALL(cuda_library_entry, cuLaunchGridAsync, f, grid_width,
                          grid_height, hStream);
 }
 
 CUresult cuFuncSetBlockShape(CUfunction hfunc, int x, int y, int z) {
+    PRINT_LINE_NUMBER();
   while (!CAS(&g_block_locker, 0, 1));
 
   g_block_x = x;
@@ -674,22 +721,26 @@ CUresult cuFuncSetBlockShape(CUfunction hfunc, int x, int y, int z) {
 }
 
 CUresult cuMemcpy_ptds(CUdeviceptr dst, CUdeviceptr src, size_t ByteCount) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy_ptds, dst, src,
                          ByteCount);
 }
 
 CUresult cuMemcpy(CUdeviceptr dst, CUdeviceptr src, size_t ByteCount) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy, dst, src, ByteCount);
 }
 
 CUresult cuMemcpyAsync_ptsz(CUdeviceptr dst, CUdeviceptr src, size_t ByteCount,
                             CUstream hStream) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyAsync_ptsz, dst, src,
                          ByteCount, hStream);
 }
 
 CUresult cuMemcpyAsync(CUdeviceptr dst, CUdeviceptr src, size_t ByteCount,
                        CUstream hStream) {
+                        PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyAsync, dst, src, ByteCount,
                          hStream);
 }
@@ -697,6 +748,7 @@ CUresult cuMemcpyAsync(CUdeviceptr dst, CUdeviceptr src, size_t ByteCount,
 CUresult cuMemcpyPeer_ptds(CUdeviceptr dstDevice, CUcontext dstContext,
                            CUdeviceptr srcDevice, CUcontext srcContext,
                            size_t ByteCount) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyPeer_ptds, dstDevice,
                          dstContext, srcDevice, srcContext, ByteCount);
 }
@@ -704,6 +756,7 @@ CUresult cuMemcpyPeer_ptds(CUdeviceptr dstDevice, CUcontext dstContext,
 CUresult cuMemcpyPeer(CUdeviceptr dstDevice, CUcontext dstContext,
                       CUdeviceptr srcDevice, CUcontext srcContext,
                       size_t ByteCount) {
+                        PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyPeer, dstDevice,
                          dstContext, srcDevice, srcContext, ByteCount);
 }
@@ -711,6 +764,7 @@ CUresult cuMemcpyPeer(CUdeviceptr dstDevice, CUcontext dstContext,
 CUresult cuMemcpyPeerAsync_ptsz(CUdeviceptr dstDevice, CUcontext dstContext,
                                 CUdeviceptr srcDevice, CUcontext srcContext,
                                 size_t ByteCount, CUstream hStream) {
+                                    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyPeerAsync_ptsz, dstDevice,
                          dstContext, srcDevice, srcContext, ByteCount, hStream);
 }
@@ -718,186 +772,221 @@ CUresult cuMemcpyPeerAsync_ptsz(CUdeviceptr dstDevice, CUcontext dstContext,
 CUresult cuMemcpyPeerAsync(CUdeviceptr dstDevice, CUcontext dstContext,
                            CUdeviceptr srcDevice, CUcontext srcContext,
                            size_t ByteCount, CUstream hStream) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyPeerAsync, dstDevice,
                          dstContext, srcDevice, srcContext, ByteCount, hStream);
 }
 
 CUresult cuMemcpyHtoD_v2_ptds(CUdeviceptr dstDevice, const void *srcHost,
                               size_t ByteCount) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoD_v2_ptds, dstDevice,
                          srcHost, ByteCount);
 }
 
 CUresult cuMemcpyHtoD_v2(CUdeviceptr dstDevice, const void *srcHost,
                          size_t ByteCount) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoD_v2, dstDevice,
                          srcHost, ByteCount);
 }
 
 CUresult cuMemcpyHtoD(CUdeviceptr dstDevice, const void *srcHost,
                       size_t ByteCount) {
+                        PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoD, dstDevice, srcHost,
                          ByteCount);
 }
 
 CUresult cuMemcpyHtoDAsync_v2_ptsz(CUdeviceptr dstDevice, const void *srcHost,
                                    size_t ByteCount, CUstream hStream) {
+                                    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoDAsync_v2_ptsz,
                          dstDevice, srcHost, ByteCount, hStream);
 }
 
 CUresult cuMemcpyHtoDAsync_v2(CUdeviceptr dstDevice, const void *srcHost,
                               size_t ByteCount, CUstream hStream) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoDAsync_v2, dstDevice,
                          srcHost, ByteCount, hStream);
 }
 
 CUresult cuMemcpyHtoDAsync(CUdeviceptr dstDevice, const void *srcHost,
                            size_t ByteCount, CUstream hStream) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyHtoDAsync, dstDevice,
                          srcHost, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoH_v2_ptds(void *dstHost, CUdeviceptr srcDevice,
                               size_t ByteCount) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoH_v2_ptds, dstHost,
                          srcDevice, ByteCount);
 }
 
 CUresult cuMemcpyDtoH_v2(void *dstHost, CUdeviceptr srcDevice,
                          size_t ByteCount) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoH_v2, dstHost,
                          srcDevice, ByteCount);
 }
 
 CUresult cuMemcpyDtoH(void *dstHost, CUdeviceptr srcDevice, size_t ByteCount) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoH, dstHost, srcDevice,
                          ByteCount);
 }
 
 CUresult cuMemcpyDtoHAsync_v2_ptsz(void *dstHost, CUdeviceptr srcDevice,
                                    size_t ByteCount, CUstream hStream) {
+                                    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoHAsync_v2_ptsz, dstHost,
                          srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoHAsync_v2(void *dstHost, CUdeviceptr srcDevice,
                               size_t ByteCount, CUstream hStream) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoHAsync_v2, dstHost,
                          srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoHAsync(void *dstHost, CUdeviceptr srcDevice,
                            size_t ByteCount, CUstream hStream) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoHAsync, dstHost,
                          srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoD_v2_ptds(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                               size_t ByteCount) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoD_v2_ptds, dstDevice,
                          srcDevice, ByteCount);
 }
 
 CUresult cuMemcpyDtoD_v2(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                          size_t ByteCount) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoD_v2, dstDevice,
                          srcDevice, ByteCount);
 }
 
 CUresult cuMemcpyDtoD(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                       size_t ByteCount) {
+                        PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoD, dstDevice, srcDevice,
                          ByteCount);
 }
 
 CUresult cuMemcpyDtoDAsync_v2_ptsz(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                                    size_t ByteCount, CUstream hStream) {
+                                    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoDAsync_v2_ptsz,
                          dstDevice, srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoDAsync_v2(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                               size_t ByteCount, CUstream hStream) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoDAsync_v2, dstDevice,
                          srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpyDtoDAsync(CUdeviceptr dstDevice, CUdeviceptr srcDevice,
                            size_t ByteCount, CUstream hStream) {
+                            PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpyDtoDAsync, dstDevice,
                          srcDevice, ByteCount, hStream);
 }
 
 CUresult cuMemcpy2DUnaligned_v2_ptds(const CUDA_MEMCPY2D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DUnaligned_v2_ptds,
                          pCopy);
 }
 
 CUresult cuMemcpy2DUnaligned_v2(const CUDA_MEMCPY2D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DUnaligned_v2, pCopy);
 }
 
 CUresult cuMemcpy2DUnaligned(const CUDA_MEMCPY2D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DUnaligned, pCopy);
 }
 
 CUresult cuMemcpy2DAsync_v2_ptsz(const CUDA_MEMCPY2D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DAsync_v2_ptsz, pCopy,
                          hStream);
 }
 
 CUresult cuMemcpy2DAsync_v2(const CUDA_MEMCPY2D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DAsync_v2, pCopy,
                          hStream);
 }
 
 CUresult cuMemcpy2DAsync(const CUDA_MEMCPY2D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy2DAsync, pCopy, hStream);
 }
 
 CUresult cuMemcpy3D_v2_ptds(const CUDA_MEMCPY3D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3D_v2_ptds, pCopy);
 }
 
 CUresult cuMemcpy3D_v2(const CUDA_MEMCPY3D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3D_v2, pCopy);
 }
 
 CUresult cuMemcpy3D(const CUDA_MEMCPY3D *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3D, pCopy);
 }
 
 CUresult cuMemcpy3DAsync_v2_ptsz(const CUDA_MEMCPY3D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DAsync_v2_ptsz, pCopy,
                          hStream);
 }
 
 CUresult cuMemcpy3DAsync_v2(const CUDA_MEMCPY3D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DAsync_v2, pCopy,
                          hStream);
 }
 
 CUresult cuMemcpy3DAsync(const CUDA_MEMCPY3D *pCopy, CUstream hStream) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DAsync, pCopy, hStream);
 }
 
 CUresult cuMemcpy3DPeer_ptds(const CUDA_MEMCPY3D_PEER *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DPeer_ptds, pCopy);
 }
 
 CUresult cuMemcpy3DPeer(const CUDA_MEMCPY3D_PEER *pCopy) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DPeer, pCopy);
 }
 
 CUresult cuMemcpy3DPeerAsync_ptsz(const CUDA_MEMCPY3D_PEER *pCopy,
                                   CUstream hStream) {
+                                    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DPeerAsync_ptsz, pCopy,
                          hStream);
 }
 
 CUresult cuMemcpy3DPeerAsync(const CUDA_MEMCPY3D_PEER *pCopy,
                              CUstream hStream) {
+                                PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuMemcpy3DPeerAsync, pCopy,
                          hStream);
 }
@@ -907,34 +996,41 @@ CUresult cuMemcpy3DPeerAsync(const CUDA_MEMCPY3D_PEER *pCopy,
  */
 
 CUresult cuCtxCreate_v2(CUcontext *pctx, unsigned int flags, CUdevice dev) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxCreate_v2, pctx, flags, dev);
   return ret;
 }
 
 CUresult cuCtxCreate(CUcontext *pctx, unsigned int flags, CUdevice dev) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxCreate, pctx, flags, dev);
   return ret;
 }
 
 CUresult cuCtxSetCurrent(CUcontext ctx) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxSetCurrent, ctx);
   return ret;
 }
 
 CUresult cuCtxPushCurrent_v2(CUcontext ctx) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxPushCurrent_v2, ctx);
   return ret;
 }
 
 CUresult cuCtxPushCurrent(CUcontext ctx) {
+    PRINT_LINE_NUMBER();
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxPushCurrent, ctx);
   return ret;
 }
 
 CUresult cuCtxDestroy_v2(CUcontext ctx) {
+    PRINT_LINE_NUMBER();
   CUdevice device;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetDevice, &device);
   if (ret != CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
   }
   else fprintf(stderr, "[%d] cuCtxDestroy_v2!\n", device);
 
@@ -942,9 +1038,11 @@ CUresult cuCtxDestroy_v2(CUcontext ctx) {
 }
 
 CUresult cuCtxDestroy(CUcontext ctx) {
+    PRINT_LINE_NUMBER();
   CUdevice device;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetDevice, &device);
   if (ret != CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     LOGGER(FATAL, "cuCtxDestroy error\n");
   }
   else fprintf(stderr, "[%d] cuCtxDestroy!\n", device);
@@ -953,9 +1051,11 @@ CUresult cuCtxDestroy(CUcontext ctx) {
 }
 
 CUresult cuCtxPopCurrent_v2(CUcontext *pctx) {
+    PRINT_LINE_NUMBER();
   CUdevice device;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetDevice, &device);
   if (ret != CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     LOGGER(FATAL, "cuCtxPopCurrent_v2 error\n");
   }
   else fprintf(stderr, "[%d] cuCtxPopCurrent_v2!\n", device);
@@ -964,9 +1064,11 @@ CUresult cuCtxPopCurrent_v2(CUcontext *pctx) {
 }
 
 CUresult cuCtxPopCurrent(CUcontext *pctx) {
+    PRINT_LINE_NUMBER();
   CUdevice device;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetDevice, &device);
   if (ret != CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     LOGGER(FATAL, "cuCtxPopCurrent error\n");
   }
   else fprintf(stderr, "[%d] cuCtxPopCurrent!\n", device);
@@ -979,17 +1081,21 @@ CUresult cuCtxPopCurrent(CUcontext *pctx) {
  */
 
 CUresult cuDevicePrimaryCtxRetain(CUcontext *pctx, CUdevice dev) {
+    PRINT_LINE_NUMBER();
   return CUDA_ENTRY_CALL(cuda_library_entry, cuDevicePrimaryCtxRetain, pctx,
                          dev);
 }
 
 CUresult cuDevicePrimaryCtxRelease(CUdevice dev) {
+    PRINT_LINE_NUMBER();
   CUdevice device;
   CUresult ret = CUDA_ENTRY_CALL(cuda_library_entry, cuCtxGetDevice, &device);
   if (ret != CUDA_SUCCESS) {
+    PRINT_LINE_NUMBER();
     LOGGER(FATAL, "cuCtxGetDevice error\n");
   }
   else fprintf(stderr, "[%d] cuDevicePrimaryCtxRelease!\n", device);
 
   return CUDA_ENTRY_CALL(cuda_library_entry, cuDevicePrimaryCtxRelease, dev);
 }
+
