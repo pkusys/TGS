@@ -9,6 +9,7 @@ import os
 import pynvml
 import csv
 import queue
+import sys
 
 from runtime.rpc import scheduler_server
 from task import Task, JobInfo
@@ -238,7 +239,10 @@ if __name__ == '__main__':
     parser.add_argument('--log_path', type=str,  required=True) # default='results/test_tgs_results.csv')
     parser.add_argument('--need_throughput', action='store_true', default=False)
     args = parser.parse_args()
-
+    p = input('Containers will be stopped and maybe deleted. Press y and then enter: ')
+    if p != 'y':
+        print('Abort.')
+        sys.exit(-1)
     subprocess.call('docker stop $(docker ps -q)', shell=True)
     subprocess.call('docker rm $(docker ps -aq)', shell=True)
 
